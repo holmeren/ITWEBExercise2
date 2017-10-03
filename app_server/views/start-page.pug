@@ -1,0 +1,79 @@
+
+h1 BAD ASS FITNESS $$$$$$
+
+button(onclick="showTable()") Create workout
+form(id="workoutForm" method='POST' action='/')
+    input(type="text" name="workoutName")
+    table(id="exerciseTable" hidden=true)
+        tr  
+            th Name
+            th Description
+            th Sets
+            th Reps
+        tr
+            td 
+                input(name="n1", type="text")
+            td 
+                input(name="d1", type="text")
+            td 
+                input(name="s1", type="text")
+            td 
+                input(name="r1", type="text")            
+        tr
+            td 
+                input(name="n2", type="text")
+            td 
+                input(name="d2", type="text")
+            td 
+                input(name="s2", type="text")
+            td 
+                input(name="r2", type="text")     
+        tr
+            td 
+                input(name="n3", type="text")
+            td 
+                input(name="d3", type="text")
+            td 
+                input(name="s3", type="text")
+            td 
+                input(name="r3", type="text")
+        tr
+            td 
+                input(name="n4", type="text")
+            td 
+                input(name="d4", type="text")
+            td 
+                input(name="s4", type="text")
+            td 
+                input(name="r4", type="text")
+        tr
+            td 
+                input(name="n5", type="text")
+            td 
+                input(name="d5", type="text")
+            td 
+                input(name="s5", type="text")
+            td 
+                input(name="r5", type="text")
+
+    button.btn.btn-primary(type="submit") Create
+
+table
+    tr
+        th Name
+        th Description
+        th Sets
+        th Reps
+    each val in allWorkout
+        tr   
+            td= val.name     
+                each exercise in val.exercises 
+                    tr
+                        td= exercise.name
+                        td= exercise.description
+                        td= exercise.sets    
+                        td= exercise.reps
+script(src='/scripts/workout.js')
+
+    
+        
