@@ -4,6 +4,8 @@ import * as favicon from 'serve-favicon';
 import * as logger from 'morgan';
 import * as cookieParser from 'cookie-parser';
 import * as bodyParser from 'body-parser';
+import * as cors from 'cors';
+
 
 import {StartPage} from './app_server/routes/index';
 //import {StartPage} from './app_server/routes/start-page';
@@ -22,6 +24,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors());
 
 app.use('/', StartPage);
 app.use('/api', StartPageApi)
