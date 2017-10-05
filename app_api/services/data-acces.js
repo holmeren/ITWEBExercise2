@@ -92,8 +92,9 @@ var DataAccess = (function () {
                             return [2];
                         }
                         collection = this.db.collection(collectionString);
-                        return [4, collection.findOne({ name: id }).then(function (result1) {
-                                myResult = result1;
+                        return [4, collection.findOne({ name: id }).then(function (result) {
+                                console.log(result);
+                                myResult = result;
                             })];
                     case 2:
                         result = _a.sent();
