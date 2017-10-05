@@ -28,6 +28,7 @@ export class StartPageController {
         var dataAccess = new DataAccess();
 
         dataAccess.create("Workouts", workout);
+        res.json({});
     }
 
     public async GetWorkoutById(req, res, next) {
@@ -59,6 +60,8 @@ export class StartPageController {
         var dataAccess = new DataAccess();
 
         dataAccess.create("workoutLogs", workoutLog);
+
+        res.json({});
     }
 
     public async GetWorkoutLogById(req, res, next) {

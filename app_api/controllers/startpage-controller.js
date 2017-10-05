@@ -68,6 +68,7 @@ var StartPageController = (function () {
                 workout = req.body;
                 dataAccess = new data_acces_1.DataAccess();
                 dataAccess.create("Workouts", workout);
+                res.json({});
                 return [2];
             });
         });
@@ -118,6 +119,7 @@ var StartPageController = (function () {
                 workoutLog = req.body;
                 dataAccess = new data_acces_1.DataAccess();
                 dataAccess.create("workoutLogs", workoutLog);
+                res.json({});
                 return [2];
             });
         });

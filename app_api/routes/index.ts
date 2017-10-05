@@ -11,7 +11,7 @@ router.post('/createWorkout', startPageController.CreateWorkout);
 
 router.get('/workout/:id', startPageController.GetWorkoutById);
 
-router.post('/createWorkoutLogs')
+router.post('/createWorkoutLog', startPageController.CreateWorkoutLog)
 
 router.get('/workoutLogs', startPageController.GetAllWorkoutLogs)
 
