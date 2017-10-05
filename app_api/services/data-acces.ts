@@ -37,7 +37,7 @@ export class DataAccess<T>{
         this.closeDbConnection();
     }
 
-    public async getOne(collectionString: string, id: string) {
+    public async getWorkout(collectionString: string, id: string) {
         var test = await this.openDbConnection()
         var myResult;
         if (test != true) {
@@ -45,14 +45,15 @@ export class DataAccess<T>{
         }
 
         var collection = this.db.collection(collectionString);
-        var result = await collection.findOne({ name: id }).then(result1 => {
-            myResult = result1;
+        var result = await collection.findOne({ name: id }).then(result => {
+            console.log(result)
+            myResult = result;
         });
         this.closeDbConnection();
         return myResult;
     }
 
-    public async getAll(collectionString: string) {
+    public async getAllWorkouts(collectionString: string) {
         var test = await this.openDbConnection()
         var myResult;
         if (test != true) {

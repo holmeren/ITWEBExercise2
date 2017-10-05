@@ -40,7 +40,7 @@ var workouts = new Array();
 var StartPageController = (function () {
     function StartPageController() {
     }
-    StartPageController.prototype.StartPage = function (req, res) {
+    StartPageController.prototype.GetAllWorkouts = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
             var dataAccess;
             return __generator(this, function (_a) {
@@ -59,7 +59,7 @@ var StartPageController = (function () {
             });
         });
     };
-    StartPageController.prototype.Post = function (req, res, next) {
+    StartPageController.prototype.CreateWorkout = function (req, res, next) {
         return __awaiter(this, void 0, void 0, function () {
             var workout, dataAccess;
             return __generator(this, function (_a) {
@@ -69,6 +69,27 @@ var StartPageController = (function () {
                 workouts.push(workout);
                 res.json({ allWorkout: workouts });
                 return [2];
+            });
+        });
+    };
+    StartPageController.prototype.GetWorkoutById = function (req, res, next) {
+        return __awaiter(this, void 0, void 0, function () {
+            var id, dataAccess;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        id = req.params.id;
+                        dataAccess = new data_acces_1.DataAccess();
+                        return [4, dataAccess.getOne("Workouts", id).then(function (result) {
+                                if (result != null) {
+                                    res.json({ allWorkout: result });
+                                }
+                            })];
+                    case 1:
+                        _a.sent();
+                        res.json({ allWorkout: null });
+                        return [2];
+                }
             });
         });
     };
