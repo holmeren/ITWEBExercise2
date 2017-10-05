@@ -16,7 +16,7 @@ export class StartPageController {
         });
 
 
-        res.json( {allWorkout: workouts });
+        res.json( { workouts });
     }
 
     public async CreateWorkout(req, res, next) {
@@ -38,10 +38,10 @@ export class StartPageController {
         var dataAccess = new DataAccess();
         await dataAccess.getWorkout("Workouts", id).then(result =>{
             if(result != null){
-                res.json( {allWorkout: result });
+                res.json( { result });
             }
         });
 
-        res.json( {allWorkout: null });
+        res.json( { });
     }
 }

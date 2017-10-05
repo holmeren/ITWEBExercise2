@@ -43,9 +43,9 @@ export class DataAccess<T>{
         if (test != true) {
             return;
         }
-
+        console.log(id);
         var collection = this.db.collection(collectionString);
-        var result = await collection.findOne({_id : "ObjectId("+id+")" }).then(result => {
+        var result = await collection.findOne({"_id" : id }).then(result => {
             console.log(result)
             myResult = result;
         });

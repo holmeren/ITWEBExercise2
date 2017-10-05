@@ -91,8 +91,9 @@ var DataAccess = (function () {
                         if (test != true) {
                             return [2];
                         }
+                        console.log(id);
                         collection = this.db.collection(collectionString);
-                        return [4, collection.findOne({ _id: "ObjectId(" + id + ")" }).then(function (result) {
+                        return [4, collection.findOne({ "_id": id }).then(function (result) {
                                 console.log(result);
                                 myResult = result;
                             })];

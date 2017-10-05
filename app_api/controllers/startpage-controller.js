@@ -53,7 +53,7 @@ var StartPageController = (function () {
                             })];
                     case 1:
                         _a.sent();
-                        res.json({ allWorkout: workouts });
+                        res.json({ workouts: workouts });
                         return [2];
                 }
             });
@@ -82,12 +82,12 @@ var StartPageController = (function () {
                         dataAccess = new data_acces_1.DataAccess();
                         return [4, dataAccess.getWorkout("Workouts", id).then(function (result) {
                                 if (result != null) {
-                                    res.json({ allWorkout: result });
+                                    res.json({ result: result });
                                 }
                             })];
                     case 1:
                         _a.sent();
-                        res.json({ allWorkout: null });
+                        res.json({});
                         return [2];
                 }
             });
