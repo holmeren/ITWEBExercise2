@@ -35,7 +35,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
+var workout_1 = require("../../app_api/models/workout");
 var data_acces_1 = require("../../app_api/services/data-acces");
+var workoutLog_1 = require("../../app_api/models/workoutLog");
 var workouts = new Array();
 var StartPageController = (function () {
     function StartPageController() {
@@ -47,7 +49,7 @@ var StartPageController = (function () {
                 switch (_a.label) {
                     case 0:
                         dataAccess = new data_acces_1.DataAccess();
-                        return [4, dataAccess.getAllWorkouts("Workouts").then(function (result) {
+                        return [4, dataAccess.getAll("Workouts").then(function (result) {
                                 console.log(result);
                                 workouts = result;
                             })];
@@ -66,28 +68,75 @@ var StartPageController = (function () {
                 workout = req.body;
                 dataAccess = new data_acces_1.DataAccess();
                 dataAccess.create("Workouts", workout);
-                workouts.push(workout);
-                res.json({ allWorkout: workouts });
                 return [2];
             });
         });
     };
     StartPageController.prototype.GetWorkoutById = function (req, res, next) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, dataAccess;
+            var id, workout, dataAccess;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         id = req.params.id;
+                        workout = new workout_1.Workout();
                         dataAccess = new data_acces_1.DataAccess();
-                        return [4, dataAccess.getWorkout("Workouts", id).then(function (result) {
-                                if (result != null) {
-                                    res.json({ result: result });
-                                }
+                        return [4, dataAccess.getById("Workouts", id).then(function (result) {
+                                workout = result;
                             })];
                     case 1:
                         _a.sent();
-                        res.json({});
+                        res.json({ workout: workout });
+                        return [2];
+                }
+            });
+        });
+    };
+    StartPageController.prototype.GetAllWorkoutLogs = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var dataAccess, workoutLogs;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        dataAccess = new data_acces_1.DataAccess();
+                        workoutLogs = new Array();
+                        return [4, dataAccess.getAll("workoutLogs").then(function (result) {
+                                workoutLogs = result;
+                            })];
+                    case 1:
+                        _a.sent();
+                        res.json({ workoutLogs: workoutLogs });
+                        return [2];
+                }
+            });
+        });
+    };
+    StartPageController.prototype.CreateWorkoutLog = function (req, res, next) {
+        return __awaiter(this, void 0, void 0, function () {
+            var workoutLog, dataAccess;
+            return __generator(this, function (_a) {
+                workoutLog = req.body;
+                dataAccess = new data_acces_1.DataAccess();
+                dataAccess.create("workoutLogs", workoutLog);
+                return [2];
+            });
+        });
+    };
+    StartPageController.prototype.GetWorkoutLogById = function (req, res, next) {
+        return __awaiter(this, void 0, void 0, function () {
+            var id, workoutLog, dataAccess;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        id = req.params.id;
+                        workoutLog = new workoutLog_1.WorkoutLog();
+                        dataAccess = new data_acces_1.DataAccess();
+                        return [4, dataAccess.getById("workoutLogs", id).then(function (result) {
+                                workoutLog = result;
+                            })];
+                    case 1:
+                        _a.sent();
+                        res.json({ workoutLog: workoutLog });
                         return [2];
                 }
             });

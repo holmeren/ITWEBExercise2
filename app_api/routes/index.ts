@@ -11,6 +11,12 @@ router.post('/createWorkout', startPageController.CreateWorkout);
 
 router.get('/workout/:id', startPageController.GetWorkoutById);
 
+router.post('/createWorkoutLogs')
+
+router.get('/workoutLogs', startPageController.GetAllWorkoutLogs)
+
+router.get('/workoutLog/:id', startPageController.GetWorkoutLogById)
+
 
 
 export const StartPageApi: Router = router;

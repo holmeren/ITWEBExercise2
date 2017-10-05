@@ -49,7 +49,7 @@ var StartPageController = (function () {
                 switch (_a.label) {
                     case 0:
                         dataAccess = new data_acces_1.DataAccess();
-                        return [4, dataAccess.getAllWorkouts("Workouts").then(function (result) {
+                        return [4, dataAccess.getAll("Workouts").then(function (result) {
                                 console.log(result);
                                 workouts = result;
                             })];

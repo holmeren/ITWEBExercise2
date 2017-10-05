@@ -1,4 +1,5 @@
 import { MongoClient, Db } from 'mongodb';
+var BSON = require('mongodb');
 
 export class DataAccess<T>{
 
@@ -37,7 +38,7 @@ export class DataAccess<T>{
         this.closeDbConnection();
     }
 
-    public async getWorkout(collectionString: string, id: string) {
+    public async getById(collectionString: string, id: string) {
         var test = await this.openDbConnection()
         var myResult;
         if (test != true) {
@@ -45,7 +46,9 @@ export class DataAccess<T>{
         }
         console.log(id);
         var collection = this.db.collection(collectionString);
-        var result = await collection.findOne({"_id" : id }).then(result => {
+        
+        var obj_id = BSON.ObjectID(id);
+        var result = await collection.findOne({"_id" : obj_id }).then(result => {
             console.log(result)
             myResult = result;
         });
@@ -53,7 +56,7 @@ export class DataAccess<T>{
         return myResult;
     }
 
-    public async getAllWorkouts(collectionString: string) {
+    public async getAll(collectionString: string) {
         var test = await this.openDbConnection()
         var myResult;
         if (test != true) {

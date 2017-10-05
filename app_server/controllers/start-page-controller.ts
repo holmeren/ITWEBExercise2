@@ -9,7 +9,7 @@ export class StartPageController {
     public async StartPage(req, res) {
         var dataAccess = new DataAccess();
 
-        await dataAccess.getAllWorkouts("Workouts").then(result => {
+        await dataAccess.getAll("Workouts").then(result => {
             console.log(result);
             workouts = result;
 

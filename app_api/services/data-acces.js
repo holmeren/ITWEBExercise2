@@ -36,6 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 var mongodb_1 = require("mongodb");
+var BSON = require('mongodb');
 var DataAccess = (function () {
     function DataAccess() {
         this.url = 'mongodb://norgaard.io:27017/badassFitness';
@@ -80,9 +81,9 @@ var DataAccess = (function () {
             });
         });
     };
-    DataAccess.prototype.getWorkout = function (collectionString, id) {
+    DataAccess.prototype.getById = function (collectionString, id) {
         return __awaiter(this, void 0, void 0, function () {
-            var test, myResult, collection, result;
+            var test, myResult, collection, obj_id, result;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4, this.openDbConnection()];
@@ -93,7 +94,8 @@ var DataAccess = (function () {
                         }
                         console.log(id);
                         collection = this.db.collection(collectionString);
-                        return [4, collection.findOne({ "_id": id }).then(function (result) {
+                        obj_id = BSON.ObjectID(id);
+                        return [4, collection.findOne({ "_id": obj_id }).then(function (result) {
                                 console.log(result);
                                 myResult = result;
                             })];
@@ -105,7 +107,7 @@ var DataAccess = (function () {
             });
         });
     };
-    DataAccess.prototype.getAllWorkouts = function (collectionString) {
+    DataAccess.prototype.getAll = function (collectionString) {
         return __awaiter(this, void 0, void 0, function () {
             var test, myResult, collection, result;
             return __generator(this, function (_a) {

@@ -7,5 +7,8 @@ var startPageController = new startpage_controller_1.StartPageController();
 router.get('/workouts', startPageController.GetAllWorkouts);
 router.post('/createWorkout', startPageController.CreateWorkout);
 router.get('/workout/:id', startPageController.GetWorkoutById);
+router.post('/createWorkoutLogs');
+router.get('/workoutLogs', startPageController.GetAllWorkoutLogs);
+router.get('/workoutLog/:id', startPageController.GetWorkoutLogById);
 exports.StartPageApi = router;
 //# sourceMappingURL=index.js.map
