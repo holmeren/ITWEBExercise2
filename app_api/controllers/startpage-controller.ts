@@ -6,10 +6,11 @@ import { Router } from 'express';
 var workouts = new Array<Workout>();
 
 export class StartPageController {
-    public async GetAllWorkouts(req, res) {
+    public async StartPage(req, res) {
         var dataAccess = new DataAccess();
 
-        await dataAccess.getAllWorkouts("Workouts").then(result => {
+        await dataAccess.getAll("Workouts").then(result => {
+            console.log(result);
             workouts = result;
 
         });
@@ -18,7 +19,7 @@ export class StartPageController {
         res.json( {allWorkout: workouts });
     }
 
-    public async CreateWorkout(req, res, next) {
+    public async Post(req, res, next) {
 
         var workout = req.body;
         
@@ -29,18 +30,5 @@ export class StartPageController {
         workouts.push(workout);
 
         res.json({allWorkout: workouts });
-    }
-
-    public async GetWorkoutById(req, res ,next){
-        var id = req.params.id;
-
-        var dataAccess = new DataAccess();
-        await dataAccess.getWorkout("Workouts", id).then(result =>{
-            if(result != null){
-                res.json( {allWorkout: result });
-            }
-        });
-
-        res.json( {allWorkout: null });
     }
 }

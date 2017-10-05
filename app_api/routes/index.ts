@@ -5,12 +5,8 @@ const router = Router();
 
 var startPageController = new StartPageController();
 
-router.get('/workouts', startPageController.GetAllWorkouts);
+router.get('/', startPageController.StartPage);
 
-router.post('/createWorkout', startPageController.CreateWorkout);
-
-router.get('/workout/:id', startPageController.GetWorkoutById);
-
-
+router.post('/', startPageController.Post);
 
 export const StartPageApi: Router = router;
