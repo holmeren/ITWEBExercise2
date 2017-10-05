@@ -80,7 +80,7 @@ var DataAccess = (function () {
             });
         });
     };
-    DataAccess.prototype.getOne = function (collectionString, id) {
+    DataAccess.prototype.getWorkout = function (collectionString, id) {
         return __awaiter(this, void 0, void 0, function () {
             var test, myResult, collection, result;
             return __generator(this, function (_a) {
@@ -92,7 +92,7 @@ var DataAccess = (function () {
                             return [2];
                         }
                         collection = this.db.collection(collectionString);
-                        return [4, collection.findOne({ name: id }).then(function (result) {
+                        return [4, collection.findOne({ _id: "ObjectId(" + id + ")" }).then(function (result) {
                                 console.log(result);
                                 myResult = result;
                             })];
@@ -104,7 +104,7 @@ var DataAccess = (function () {
             });
         });
     };
-    DataAccess.prototype.getAll = function (collectionString) {
+    DataAccess.prototype.getAllWorkouts = function (collectionString) {
         return __awaiter(this, void 0, void 0, function () {
             var test, myResult, collection, result;
             return __generator(this, function (_a) {

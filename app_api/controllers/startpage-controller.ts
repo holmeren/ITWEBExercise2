@@ -10,6 +10,7 @@ export class StartPageController {
         var dataAccess = new DataAccess();
 
         await dataAccess.getAllWorkouts("Workouts").then(result => {
+            console.log(result);
             workouts = result;
 
         });

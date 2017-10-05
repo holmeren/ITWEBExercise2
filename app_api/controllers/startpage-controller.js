@@ -47,7 +47,7 @@ var StartPageController = (function () {
                 switch (_a.label) {
                     case 0:
                         dataAccess = new data_acces_1.DataAccess();
-                        return [4, dataAccess.getAll("Workouts").then(function (result) {
+                        return [4, dataAccess.getAllWorkouts("Workouts").then(function (result) {
                                 console.log(result);
                                 workouts = result;
                             })];
@@ -80,7 +80,7 @@ var StartPageController = (function () {
                     case 0:
                         id = req.params.id;
                         dataAccess = new data_acces_1.DataAccess();
-                        return [4, dataAccess.getOne("Workouts", id).then(function (result) {
+                        return [4, dataAccess.getWorkout("Workouts", id).then(function (result) {
                                 if (result != null) {
                                     res.json({ allWorkout: result });
                                 }
