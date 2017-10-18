@@ -37,30 +37,73 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var user_1 = require("../models/user");
 var data_acces_1 = require("../../app_api/services/data-acces");
+var jwt = require('jsonwebtoken');
 var AuthenticationController = (function () {
     function AuthenticationController() {
+        this.secret = "badassFitness";
     }
     AuthenticationController.prototype.Register = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var user, dataAccess;
+            var user, dataAccess, result, token;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         user = new user_1.User();
-                        user.name = req.body;
+                        user.name = req.body.name;
+                        user.email = req.body.email;
+                        user.password = req.body.password;
                         dataAccess = new data_acces_1.DataAccess();
-                        return [4, dataAccess.create("Users", user).then(function (result) {
-                                console.log(result);
-                            })];
+                        return [4, dataAccess.create("Users", user)];
                     case 1:
-                        _a.sent();
-                        res.json({});
+                        result = _a.sent();
+                        if (result instanceof user_1.User) {
+                            token = this.Generate(result);
+                            res
+                                .status(200)
+                                .json({ "token": token });
+                        }
+                        else {
+                            res
+                                .status(404)
+                                .json(result);
+                        }
                         return [2];
                 }
             });
         });
     };
     AuthenticationController.prototype.Login = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var dataAccess, result, token;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        dataAccess = new data_acces_1.DataAccess();
+                        return [4, dataAccess.getByProperty("Users", "email", req.body.email)];
+                    case 1:
+                        result = _a.sent();
+                        console.log(result);
+                        if (result != null && req.body.email === result.email && req.body.password === result.password) {
+                            token = this.Generate(result);
+                            res
+                                .status(200)
+                                .json({ "token": token });
+                        }
+                        else {
+                            res.status(401).json({
+                                error: {
+                                    message: 'Wrong username or password!'
+                                }
+                            });
+                        }
+                        return [2];
+                }
+            });
+        });
+    };
+    AuthenticationController.prototype.Generate = function (user) {
+        var myJwt = jwt.sign({ user: user }, this.secret, { expiresIn: '1h' });
+        return myJwt;
     };
     return AuthenticationController;
 }());

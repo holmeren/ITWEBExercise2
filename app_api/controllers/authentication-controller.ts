@@ -1,22 +1,60 @@
 import { User } from '../models/user';
 import { DataAccess } from '../../app_api/services/data-acces';
-import { Router } from 'express';
+var jwt = require('jsonwebtoken');
 
 export  class AuthenticationController {
+    private secret = "badassFitness";
+
+    
     public async Register(req, res) {
-        const user = new User();
-        user.name = req.body;
+        var user = new User();
+        user.name = req.body.name;  
+        user.email = req.body.email;
+        user.password = req.body.password;
 
         var dataAccess = new DataAccess();
 
-        await dataAccess.create("Users", user).then(result =>{
-            console.log(result);
-        });
-        res.json({});
+        var result = await dataAccess.create("Users", user);
+
+        if(result instanceof User){
+
+            var token = this.Generate(result);
+            res
+            .status(200)
+            .json({"token": token});
+        }else{
+            res
+            .status(404)
+            .json(result);
+        }
+
+        
     }
 
-    public Login(req, res) {
+    public async Login(req, res) {
 
+        var dataAccess = new DataAccess();
+
+        var result = await dataAccess.getByProperty("Users","email", req.body.email);
+        console.log(result)
+        if(result != null && req.body.email === result.email && req.body.password === result.password ) {
+            var token = this.Generate(result);
+            res
+            .status(200)
+            .json({"token": token});
+        } else {
+            res.status(401).json({
+                error: {
+                    message: 'Wrong username or password!'
+                }
+            });
+        }
+    }
+
+    private Generate(user:User){
+
+        var myJwt= jwt.sign({user}, this.secret,{ expiresIn: '1h' });
+        return myJwt;       
     }
 
 }

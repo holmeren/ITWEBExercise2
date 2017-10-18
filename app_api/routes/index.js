@@ -14,7 +14,7 @@ router.get('/workout/:id', workoutController.GetWorkoutById);
 router.post('/createWorkoutLog', workoutLogController.CreateWorkoutLog);
 router.get('/workoutLogs', workoutLogController.GetAllWorkoutLogs);
 router.get('/workoutLog/:id', workoutLogController.GetWorkoutLogById);
-router.post('/register', authenticationController.Register);
-router.post('/login', authenticationController.Login);
+router.post('/register', authenticationController.Register.bind(authenticationController));
+router.post('/login', authenticationController.Login.bind(authenticationController));
 exports.BadassFitnessAPI = router;
 //# sourceMappingURL=index.js.map

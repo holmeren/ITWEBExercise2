@@ -22,8 +22,8 @@ router.get('/workoutLogs', workoutLogController.GetAllWorkoutLogs)
 
 router.get('/workoutLog/:id', workoutLogController.GetWorkoutLogById)
 
-router.post('/register', authenticationController.Register)
+router.post('/register', authenticationController.Register.bind(authenticationController))
 
-router.post('/login', authenticationController.Login)
+router.post('/login', authenticationController.Login.bind(authenticationController))
 
 export const BadassFitnessAPI: Router = router;

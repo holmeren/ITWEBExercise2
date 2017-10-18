@@ -64,7 +64,7 @@ var DataAccess = (function () {
     };
     DataAccess.prototype.create = function (collectionString, data) {
         return __awaiter(this, void 0, void 0, function () {
-            var test, collection, result, err_1;
+            var test, collection, result, e_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4, this.openDbConnection()];
@@ -80,15 +80,13 @@ var DataAccess = (function () {
                         return [4, collection.insertOne(data)];
                     case 3:
                         result = _a.sent();
-                        return [3, 5];
-                    case 4:
-                        err_1 = _a.sent();
-                        console.log(err_1);
-                        return [3, 5];
-                    case 5:
-                        console.log(result);
                         this.closeDbConnection();
-                        return [2, result];
+                        return [2, data];
+                    case 4:
+                        e_1 = _a.sent();
+                        this.closeDbConnection();
+                        return [2, { "err": e_1 }];
+                    case 5: return [2];
                 }
             });
         });
@@ -104,11 +102,9 @@ var DataAccess = (function () {
                         if (test != true) {
                             return [2];
                         }
-                        console.log(id);
                         collection = this.db.collection(collectionString);
                         obj_id = BSON.ObjectID(id);
                         return [4, collection.findOne({ "_id": obj_id }).then(function (result) {
-                                console.log(result);
                                 myResult = result;
                             })];
                     case 2:
@@ -136,6 +132,29 @@ var DataAccess = (function () {
                             })];
                     case 2:
                         result = _a.sent();
+                        this.closeDbConnection();
+                        return [2, myResult];
+                }
+            });
+        });
+    };
+    DataAccess.prototype.getByProperty = function (collectionString, property, value) {
+        return __awaiter(this, void 0, void 0, function () {
+            var test, myResult, collection, result, _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4, this.openDbConnection()];
+                    case 1:
+                        test = _b.sent();
+                        if (test != true) {
+                            return [2];
+                        }
+                        collection = this.db.collection(collectionString);
+                        return [4, collection.findOne((_a = {}, _a[property] = value, _a)).then(function (result) {
+                                myResult = result;
+                            })];
+                    case 2:
+                        result = _b.sent();
                         this.closeDbConnection();
                         return [2, myResult];
                 }

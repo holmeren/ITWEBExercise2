@@ -34,14 +34,14 @@ export class DataAccess<T>{
             return;
         }
         var collection = this.db.collection(collectionString);
-        try {
+        try{
             var result = await collection.insertOne(data);
-        } catch (err) {
-            console.log(err);
-        } 
-        console.log(result);
-        this.closeDbConnection();
-        return result;
+            this.closeDbConnection();
+            return data;
+        }catch(e){
+            this.closeDbConnection();
+            return {"err": e};
+        }        
     }
 
     public async getById(collectionString: string, id: string) {
@@ -50,12 +50,10 @@ export class DataAccess<T>{
         if (test != true) {
             return;
         }
-        console.log(id);
         var collection = this.db.collection(collectionString);
 
         var obj_id = BSON.ObjectID(id);
         var result = await collection.findOne({ "_id": obj_id }).then(result => {
-            console.log(result)
             myResult = result;
         });
         this.closeDbConnection();
@@ -72,6 +70,21 @@ export class DataAccess<T>{
         var collection = this.db.collection(collectionString);
         var result = await collection.find({}).toArray().then(result1 => {
             myResult = result1;
+        });
+        this.closeDbConnection();
+        return myResult;
+    }
+
+    public async getByProperty(collectionString: string, property: string, value: string){
+        var test = await this.openDbConnection()
+        var myResult;
+        if (test != true) {
+            return;
+        }
+        var collection = this.db.collection(collectionString);
+
+        var result = await collection.findOne({[property]:value}).then(result => {
+            myResult = result;
         });
         this.closeDbConnection();
         return myResult;
