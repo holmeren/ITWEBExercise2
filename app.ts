@@ -9,7 +9,7 @@ import * as cors from 'cors';
 
 import {StartPage} from './app_server/routes/index';
 //import {StartPage} from './app_server/routes/start-page';
-import {StartPageApi} from './app_api/routes/index'
+import {BadassFitnessAPI} from './app_api/routes/index'
 
 var app = express();
 
@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
 app.use('/', StartPage);
-app.use('/api', StartPageApi)
+app.use('/api', BadassFitnessAPI)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

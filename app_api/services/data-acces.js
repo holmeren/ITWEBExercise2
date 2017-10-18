@@ -64,7 +64,7 @@ var DataAccess = (function () {
     };
     DataAccess.prototype.create = function (collectionString, data) {
         return __awaiter(this, void 0, void 0, function () {
-            var test, collection;
+            var test, collection, result, err_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4, this.openDbConnection()];
@@ -74,9 +74,21 @@ var DataAccess = (function () {
                             return [2];
                         }
                         collection = this.db.collection(collectionString);
-                        collection.insertOne(data);
+                        _a.label = 2;
+                    case 2:
+                        _a.trys.push([2, 4, , 5]);
+                        return [4, collection.insertOne(data)];
+                    case 3:
+                        result = _a.sent();
+                        return [3, 5];
+                    case 4:
+                        err_1 = _a.sent();
+                        console.log(err_1);
+                        return [3, 5];
+                    case 5:
+                        console.log(result);
                         this.closeDbConnection();
-                        return [2];
+                        return [2, result];
                 }
             });
         });

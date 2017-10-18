@@ -34,8 +34,14 @@ export class DataAccess<T>{
             return;
         }
         var collection = this.db.collection(collectionString);
-        collection.insertOne(data);
+        try {
+            var result = await collection.insertOne(data);
+        } catch (err) {
+            console.log(err);
+        } 
+        console.log(result);
         this.closeDbConnection();
+        return result;
     }
 
     public async getById(collectionString: string, id: string) {
@@ -46,9 +52,9 @@ export class DataAccess<T>{
         }
         console.log(id);
         var collection = this.db.collection(collectionString);
-        
+
         var obj_id = BSON.ObjectID(id);
-        var result = await collection.findOne({"_id" : obj_id }).then(result => {
+        var result = await collection.findOne({ "_id": obj_id }).then(result => {
             console.log(result)
             myResult = result;
         });
