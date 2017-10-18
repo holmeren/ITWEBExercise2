@@ -26,9 +26,7 @@ export  class AuthenticationController {
             res
             .status(404)
             .json(result);
-        }
-
-        
+        }  
     }
 
     public async Login(req, res) {
@@ -56,5 +54,25 @@ export  class AuthenticationController {
         var myJwt= jwt.sign({user}, this.secret,{ expiresIn: '1h' });
         return myJwt;       
     }
+
+    // public Authorization(req, res){
+    //     if( req.hasOwnProperty('headers') && req.headers.hasOwnProperty('authorization') ) {
+    //         try {
+    //             req.user = jwt.verify(req.headers['authorization'], config.JWT_SECRET);
+    //         } catch(err) {
+    //             return res.status(401).json({
+    //                 error: {
+    //                     msg: 'Failed to authenticate token!'
+    //                 }
+    //             });
+    //         }
+    //     } else {
+    //         return res.status(401).json({
+    //             error: {
+    //                 msg: 'No token!'
+    //             }
+    //         });
+    //     }
+    // }
 
 }
