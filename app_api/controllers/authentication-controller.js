@@ -40,7 +40,7 @@ var data_acces_1 = require("../../app_api/services/data-acces");
 var jwt = require('jsonwebtoken');
 var AuthenticationController = (function () {
     function AuthenticationController() {
-        this.secret = "badassFitness";
+        this.secret = "badAssFitness";
     }
     AuthenticationController.prototype.Register = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
@@ -58,6 +58,7 @@ var AuthenticationController = (function () {
                         result = _a.sent();
                         if (result instanceof user_1.User) {
                             token = this.Generate(result);
+                            console.log(token);
                             res
                                 .status(200)
                                 .json({ "token": token });
@@ -102,7 +103,7 @@ var AuthenticationController = (function () {
         });
     };
     AuthenticationController.prototype.Generate = function (user) {
-        var myJwt = jwt.sign({ user: user }, this.secret, { expiresIn: '1h' });
+        var myJwt = jwt.sign(user, this.secret, { expiresIn: 60 * 60 });
         return myJwt;
     };
     return AuthenticationController;

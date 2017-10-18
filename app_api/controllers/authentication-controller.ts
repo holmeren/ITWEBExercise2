@@ -3,7 +3,7 @@ import { DataAccess } from '../../app_api/services/data-acces';
 var jwt = require('jsonwebtoken');
 
 export  class AuthenticationController {
-    private secret = "badassFitness";
+    private secret = "badAssFitness";
 
     
     public async Register(req, res) {
@@ -19,6 +19,7 @@ export  class AuthenticationController {
         if(result instanceof User){
 
             var token = this.Generate(result);
+            console.log(token)
             res
             .status(200)
             .json({"token": token});
@@ -51,7 +52,7 @@ export  class AuthenticationController {
 
     private Generate(user:User){
 
-        var myJwt= jwt.sign({user}, this.secret,{ expiresIn: '1h' });
+        var myJwt= jwt.sign(user, this.secret,{ expiresIn: 60*60 });
         return myJwt;       
     }
 
