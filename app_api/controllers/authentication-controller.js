@@ -103,7 +103,8 @@ var AuthenticationController = (function () {
         });
     };
     AuthenticationController.prototype.Generate = function (user) {
-        var myJwt = jwt.sign(user, this.secret, { expiresIn: 60 * 60 });
+        var myJwt = jwt.sign({ name: user.name,
+            email: user.email, password: user.password, _id: user._id }, this.secret, { expiresIn: 60 * 60 });
         return myJwt;
     };
     return AuthenticationController;

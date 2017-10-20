@@ -15,9 +15,10 @@ export  class AuthenticationController {
         var dataAccess = new DataAccess();
 
         var result = await dataAccess.create("Users", user);
-
+        
         if(result instanceof User){
 
+            
             var token = this.Generate(result);
             console.log(token)
             res
@@ -50,9 +51,9 @@ export  class AuthenticationController {
         }
     }
 
-    private Generate(user:User){
-
-        var myJwt= jwt.sign(user, this.secret,{ expiresIn: 60*60 });
+    private Generate(user:any){
+        var myJwt= jwt.sign({name: user.name,
+            email: user.email,password: user.password,_id: user._id,}, this.secret,{ expiresIn: 60*60 });
         return myJwt;       
     }
 
